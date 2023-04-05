@@ -1,5 +1,6 @@
 package com.example.todobackend.model;
 
+import com.example.todobackend.dto.TodoStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +16,8 @@ public class Todo {
     private long id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
+    private TodoStatus status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private User user;

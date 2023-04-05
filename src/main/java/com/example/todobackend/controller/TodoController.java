@@ -30,6 +30,11 @@ public class TodoController {
         return ResponseEntity.ok(todoService.getTodoById(id));
     }
 
+    @PatchMapping("/complete/{id}")
+    public ResponseEntity<Todo> completeTodo(@PathVariable Long id){
+        return ResponseEntity.ok(todoService.completeTodo(id));
+    }
+
     @PostMapping
     public ResponseEntity<Todo> createOrUpdateTodo(@RequestBody Todo todo,
                                                    @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization){

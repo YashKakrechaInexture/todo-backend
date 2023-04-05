@@ -1,5 +1,6 @@
 package com.example.todobackend.service;
 
+import com.example.todobackend.dto.TodoStatus;
 import com.example.todobackend.exception.ResourceNotFoundException;
 import com.example.todobackend.model.Todo;
 import com.example.todobackend.model.User;
@@ -34,10 +35,18 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    public Todo completeTodo(Long id){
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:"+id));
+        todo.setStatus(TodoStatus.COMPLETED);
+        return todoRepository.save(todo);
+    }
+
+    @Override
     public Todo saveTodo(Todo todo, String authorization) {
         String email = jwtTokenUtil.getUsernameFromToken(authorization.substring(7));
         User user = userRepository.findByEmail(email);
         todo.setUser(user);
+        todo.setStatus(TodoStatus.TODO);
         return todoRepository.save(todo);
     }
 }
