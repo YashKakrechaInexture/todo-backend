@@ -10,7 +10,9 @@ import com.example.todobackend.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -25,8 +27,11 @@ public class TodoServiceImpl implements TodoService {
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public List<Todo> getAll() {
-        return todoRepository.findAll();
+    public List<Todo> getAll(String status) {
+        if(status==null) {
+            return todoRepository.findAll();
+        }
+        return todoRepository.getTodosByStatusEquals(TodoStatus.valueOf(status));
     }
 
     @Override
@@ -48,5 +53,14 @@ public class TodoServiceImpl implements TodoService {
         todo.setUser(user);
         todo.setStatus(TodoStatus.TODO);
         return todoRepository.save(todo);
+    }
+
+    @Override
+    public Map<TodoStatus,Integer> getSummary(){
+        Map<TodoStatus, Integer> summary = new HashMap<>();
+        for(TodoStatus status : TodoStatus.values()){
+            summary.put(status,todoRepository.countByStatusEquals(status));
+        }
+        return summary;
     }
 }
