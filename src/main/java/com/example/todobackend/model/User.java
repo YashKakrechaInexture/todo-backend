@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 @Entity
+@Table(name = "user_table")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
