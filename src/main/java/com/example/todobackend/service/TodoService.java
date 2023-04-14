@@ -10,6 +10,6 @@ public interface TodoService {
     List<Todo> getAll(String status);
     Todo getTodoById(Long id);
     Todo completeTodo(Long id);
-    Todo saveTodo(Todo Todo, String authorization);
+    Todo saveTodo(Todo todo, String authorization);
     Map<TodoStatus,Integer> getSummary();
 }

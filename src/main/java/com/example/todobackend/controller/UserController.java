@@ -23,7 +23,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @PostMapping("{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserById(id));
     }

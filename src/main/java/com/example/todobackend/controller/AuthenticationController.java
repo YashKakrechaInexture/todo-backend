@@ -5,7 +5,6 @@ import com.example.todobackend.security.dto.JwtResponse;
 import com.example.todobackend.security.dto.JwtUserDetails;
 import com.example.todobackend.security.service.JwtUserDetailsService;
 import com.example.todobackend.security.util.JwtTokenUtil;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +30,7 @@ public class AuthenticationController {
     private JwtUserDetailsService userDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
+    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         final JwtUserDetails userDetails = (JwtUserDetails) userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);

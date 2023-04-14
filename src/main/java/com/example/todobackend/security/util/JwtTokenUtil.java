@@ -61,7 +61,7 @@ public class JwtTokenUtil implements Serializable {
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserDetails userDetails) {
         JwtUserDetails jwtUserDetails = (JwtUserDetails) userDetails;
         final String username = getUsernameFromToken(token);
         final boolean role = Boolean.parseBoolean(getClaimFromToken(token, claims -> claims.get(JWT_ROLE)).toString());

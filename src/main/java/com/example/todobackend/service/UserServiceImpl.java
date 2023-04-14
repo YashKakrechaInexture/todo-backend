@@ -38,9 +38,6 @@ public class UserServiceImpl implements UserService {
         if(!Boolean.parseBoolean(jwtTokenUtil.getClaimFromToken(authorization.substring(7), claims -> claims.get(JwtTokenUtil.JWT_ROLE)).toString())){
             throw new RuntimeException("You do not have admin permissions!");
         }
-//        if(user.getId()!=0){
-//            throw new RuntimeException("You cannot update user!");
-//        }
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setAdmin(false);
